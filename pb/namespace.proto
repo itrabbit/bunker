@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "pb";
+
+message NameSpace {
+    uint64 id = 1;
+    uint64 applicationId = 2;
+    repeated string parts = 3;
+    bool isPrivate = 4;
+    // 5 - 7 - reserved
+    // Timestamps
+    int64 createdAt = 8;
+    int64 updatedAt = 9;
+    int64 deletedAt = 10;
+}
+
+message NameSpaces {
+    repeated NameSpace items = 1;
+}
+
