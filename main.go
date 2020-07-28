@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gofiber/cors"
 	"github.com/gofiber/fiber"
 	"github.com/gofiber/fiber/middleware"
@@ -17,6 +19,14 @@ func main() {
 	); err != nil {
 		panic(err)
 	}
+	// Init storage catalog
+	if _, err := os.Stat(config.GetStoragePath()); os.IsNotExist(err) {
+		err = os.MkdirAll(config.GetStoragePath(), 0777)
+		if err != nil {
+			panic(err)
+		}
+	}
+	// Create app
 	app := fiber.New()
 	app.Use(
 		middleware.Recover(),

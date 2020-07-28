@@ -2,9 +2,12 @@ package models
 
 type File struct {
 	ID          uint64     `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
+	Alias       string     `gorm:"unque_index;not null" json:"alias" validate:"required"`
 	OwnerID     *uint64    `gorm:"index;null" json:"-"`
 	NameSpaceID *uint64    `gorm:"index;null" json:"-"`
 	NameSpace   *NameSpace `gorm:"foreignkey:NameSpaceID" json:"namespace"`
+	PeerID      *uint64    `gorm:"index;null" json:"-"`
+	Peer        *Peer      `gorm:"foreignkey:PeerID" json:"-"`
 
 	// Info
 	Hash         string `gorm:"not null" json:"hash" validate:"required"`

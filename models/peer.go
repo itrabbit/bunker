@@ -7,8 +7,8 @@ import (
 
 type Peer struct {
 	ID        uint64     `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
-	Addresses StringList `gorm:"type:varchar(256);not null" json:"addresses"`
-	Name      string     `gorm:"index;not null"`
+	Addresses StringList `gorm:"type:varchar(256);not null" json:"addresses" validate:"required"`
+	Name      string     `gorm:"unque_index;not null" validate:"required"`
 
 	// Timestamps
 	CreatedAt Time  `gorm:"not null;default:CURRENT_TIMESTAMP" json:"createdAt"`

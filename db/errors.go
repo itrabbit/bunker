@@ -7,4 +7,5 @@ var (
 	ErrNotSupported        = errors.New("not supported")
 	ErrInvalidData         = errors.New("invalid input data")
 	ErrAlreadyExist        = errors.New("already exist")
+	ErrNotFound            = errors.New("not found")
 )

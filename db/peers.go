@@ -56,7 +56,7 @@ func (m *peersMapper) Save(peer *models.Peer) error {
 	} else if exist {
 		return ErrAlreadyExist
 	}
-	if db.NewRecord(peer) {
+	if !db.NewRecord(peer) {
 		return db.Save(peer).Error
 	}
 	return db.Create(peer).Error

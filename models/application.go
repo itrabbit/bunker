@@ -4,8 +4,8 @@ import "github.com/itrabbit/bunker/pb"
 
 type Application struct {
 	ID   uint64 `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
-	Name string `gorm:"not null" json:"name"`
-	Key  string `gorm:"unique;not null" json:"-"`
+	Name string `gorm:"unque_index;not null" json:"name"`
+	Key  string `gorm:"unque_index;not null" json:"-"`
 
 	// Timestamps
 	CreatedAt Time  `gorm:"not null;default:CURRENT_TIMESTAMP" json:"createdAt"`

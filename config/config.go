@@ -3,10 +3,12 @@ package config
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"strconv"
 )
 
 var prefix = "BUNKER"
+var storagePath = ""
 
 func getKeyName(key string) string {
 	if len(prefix) > 0 {
@@ -17,6 +19,17 @@ func getKeyName(key string) string {
 
 func SetPrefix(s string) {
 	prefix = s
+}
+
+func GetStoragePath() string {
+	if len(storagePath) < 1 {
+		storagePath = os.Getenv(getKeyName("STORAGE_PATH"))
+		if len(storagePath) < 1 {
+			storagePath = "./storage"
+		}
+		storagePath, _ = filepath.Abs(storagePath)
+	}
+	return storagePath
 }
 
 func GetBindPort() int {

@@ -6,9 +6,10 @@ type NameSpace struct {
 	ID            uint64       `gorm:"primary_key;AUTO_INCREMENT" json:"id,omitempty"`
 	ApplicationID *uint64      `gorm:"index;null" json:"-"`
 	Application   *Application `gorm:"foreignkey:ApplicationID" json:"application,omitempty"`
+	Alias         string       `gorm:"unque_index;not null" json:"alias" validate:"required"`
 
 	// Parts ['u1', 'welcome', '333']
-	Parts StringList `gorm:"type:varchar(512);unique;not null" json:"parts"`
+	Parts StringList `gorm:"type:varchar(512);not null" json:"-"`
 
 	// Need get access key
 	IsPrivate bool `json:"isPrivate,omitempty"`

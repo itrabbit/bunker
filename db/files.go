@@ -7,6 +7,20 @@ import (
 type filesMapper struct {
 }
 
+func (m *filesMapper) FindOne(nameSpaceId uint64, alias string) (*models.File, error) {
+	if db == nil {
+		return nil, ErrInvalidDbConnection
+	}
+	var file models.File
+	if err := db.Where("name_space_id = ? AND alias = ?", nameSpaceId, alias).First(&file).Error; err != nil {
+		return nil, err
+	}
+	if file.ID < 1 {
+		return nil, ErrNotFound
+	}
+	return &file, nil
+}
+
 func (m *filesMapper) Delete(file *models.File) error {
 	if file == nil {
 		return nil
@@ -52,7 +66,7 @@ func (m *filesMapper) Save(file *models.File) error {
 	} else if exist {
 		return ErrAlreadyExist
 	}
-	if db.NewRecord(file) {
+	if !db.NewRecord(file) {
 		return db.Save(file).Error
 	}
 	return db.Create(file).Error
